@@ -1,3 +1,5 @@
+// fp-list-bldr scans a set of forced-photometry FITS files produced by the LSST stack
+// and creates a list of sources: position, flux (mean,sigma) - single or multi-colors
 package main
 
 import (
@@ -11,16 +13,14 @@ import (
 )
 
 var (
-	g_out    = flag.String("out", "", "output directory")
-	g_base   = flag.String("basedir", "", "base directory where data lives")
 	g_config = flag.String("jobo", "jobo.toml", "job configuration file")
 )
 
 func main() {
-	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 
 	flag.Parse()
 
+	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 	rc := run()
 
 	os.Exit(rc)

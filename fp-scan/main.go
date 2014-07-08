@@ -1,3 +1,4 @@
+// fp-scan scans and analyzes forced-photometry output files from the LSST stack
 package main
 
 import (
@@ -11,16 +12,14 @@ import (
 )
 
 var (
-	g_out    = flag.String("out", "", "output directory")
-	g_base   = flag.String("basedir", "", "base directory where data lives")
 	g_config = flag.String("jobo", "jobo.toml", "job configuration file")
 )
 
 func main() {
-	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 
 	flag.Parse()
 
+	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 	rc := run()
 
 	os.Exit(rc)

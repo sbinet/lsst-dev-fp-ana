@@ -6,6 +6,14 @@ import (
 
 var msg = logger.New("app")
 
+// App is the main driver for the mini go-lsst processing framework.
+//
+// An App has a slice of P, each run in turn.
+// The basic code-flow is as follow:
+// - configure each processor
+// - start each processor
+// - run each processor
+// - stop each processor
 type App struct {
 	Procs []P
 }
@@ -22,12 +30,15 @@ type P interface {
 	StopProcess() error
 }
 
+// Options is any value passed to processors to provide additional user-defined configuration data.
 type Options interface{}
 
+// Configurer models processors which can configure themselves.
 type Configurer interface {
 	Configure(cfg Options) error
 }
 
+// Configure configures each processor, if it implements the Configurer interface.
 func (app *App) Configure(opts Options) error {
 	var err error
 	msg.Infof("configure...\n")
@@ -44,6 +55,7 @@ func (app *App) Configure(opts Options) error {
 	return err
 }
 
+// Run runs the processors (Start/Process/Stop)
 func (app *App) Run() error {
 	var err error
 	msg.Infof("run...\n")
