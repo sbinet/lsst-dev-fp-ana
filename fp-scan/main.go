@@ -11,8 +11,6 @@ import (
 )
 
 var (
-	g_out    = flag.String("out", "", "output directory")
-	g_base   = flag.String("basedir", "", "base directory where data lives")
 	g_config = flag.String("jobo", "jobo.toml", "job configuration file")
 )
 
