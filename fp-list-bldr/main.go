@@ -15,10 +15,10 @@ var (
 )
 
 func main() {
-	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 
 	flag.Parse()
 
+	fmt.Printf("=== %s ===\n", filepath.Base(os.Args[0]))
 	rc := run()
 
 	os.Exit(rc)
