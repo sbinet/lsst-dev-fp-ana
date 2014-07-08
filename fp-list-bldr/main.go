@@ -1,3 +1,5 @@
+// fp-list-bldr scans a set of forced-photometry FITS files produced by the LSST stack
+// and creates a list of sources: position, flux (mean,sigma) - single or multi-colors
 package main
 
 import (
