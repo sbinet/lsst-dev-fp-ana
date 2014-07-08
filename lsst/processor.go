@@ -96,7 +96,7 @@ func (proc *Processor) Configure(opts Options) error {
 	}
 
 	if proc.Config == nil {
-		return nil
+		return err
 	}
 
 	return proc.Config(opts)
@@ -109,7 +109,7 @@ func (proc *Processor) StartProcess() error {
 	}
 
 	if proc.Start == nil {
-		return nil
+		return err
 	}
 
 	return proc.Start()
