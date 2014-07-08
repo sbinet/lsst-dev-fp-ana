@@ -1,0 +1,22 @@
+BaseDir = "/home/binet/dev/lsst/data/dev/lsstprod/DC_2013/forcedPhot_dir/forcedPhot"
+OutDir = "data"
+Flux = [0.0, 500000.0]
+Filters = ["i"]
+
+[RaDec]
+  NbRa = 36
+  NbDec = 18
+  DeltaRa = 10.0
+  DeltaDec = 10.0
+  [RaDec.Min]
+    Ra = 0.0
+    Dec = -90.0
+  [RaDec.Max]
+    Ra = 360.0
+    Dec = -90.0
+
+[[RunFMMs]]
+  Run = 1752
+  FieldMin = 30
+  FieldMax = 50
+  #FieldMax = 230
