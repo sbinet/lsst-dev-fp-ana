@@ -1,3 +1,4 @@
+// fp-scan scans and analyzes forced-photometry output files from the LSST stack
 package main
 
 import (
