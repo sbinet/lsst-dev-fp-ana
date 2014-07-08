@@ -8,6 +8,7 @@ import (
 	"github.com/gonuts/logger"
 )
 
+// Stats holds statistics gathered during a job.
 type Stats struct {
 	Files        int
 	MissingFiles int
@@ -15,6 +16,7 @@ type Stats struct {
 	FilesSize    int64
 }
 
+// File represents a FITS input file (from the LSST stack) to be processed/analyzed.
 type File struct {
 	Name   string
 	Filter byte
@@ -23,6 +25,10 @@ type File struct {
 	Run    int
 }
 
+// Processor is the base value holding the context to process data.
+// Processor implements the P processor interface.
+// A user-defined processor provides a .Proc function, which will be called
+// on each FITS file being processed.
 type Processor struct {
 	Config func(opts Options) error
 	Start  func() error
@@ -48,6 +54,9 @@ type Processor struct {
 	Stats Stats
 }
 
+// NewProcessor creates a new Processor named name.
+// Users may provide  .Conf, .Start and .Stop function fields.
+// They need to provide a .Proc function field.
 func NewProcessor(name string) *Processor {
 	const (
 		ramin  = 0
