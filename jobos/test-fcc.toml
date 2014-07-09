@@ -1,4 +1,4 @@
-BaseDir = "/home/binet/dev/lsst/data/dev/lsstprod/DC_2013/forcedPhot_dir/forcedPhot"
+BaseDir = "/sps/lsst/data/dev/lsstprod/DC_2013/forcedPhot_dir/forcedPhot"
 OutDir = "data"
 Flux = [0.0, 500000.0]
 Filters = ["i"]
