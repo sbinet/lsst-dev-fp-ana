@@ -60,6 +60,11 @@ func NewFileScanner(name string) lsst.P {
 	proc.Config = func(opts lsst.Options) error {
 		var err error
 
+		return err
+	}
+
+	proc.Start = func() error {
+		var err error
 		proc.Infof("output dir: [%s]\n", proc.OutputDir)
 		fname := filepath.Join(proc.OutputDir, "fpfsum.fits")
 		_ = os.RemoveAll(fname)
@@ -83,11 +88,6 @@ func NewFileScanner(name string) lsst.P {
 		if err != nil {
 			return err
 		}
-		return err
-	}
-
-	proc.Start = func() error {
-		var err error
 		return err
 	}
 
