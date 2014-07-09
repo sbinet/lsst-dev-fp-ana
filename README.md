@@ -1,6 +1,8 @@
 fp-ana
 ======
 
+[![Build Status](https://drone.io/github.com/lsst-france/fp-ana/status.png)](https://drone.io/github.com/lsst-france/fp-ana/latest)
+
 `fp-ana` is a set of tools and binaries to analyze the output files
 from the LSST stack.
 
