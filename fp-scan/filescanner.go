@@ -18,10 +18,6 @@ const (
 type fscanner struct {
 	*lsst.Processor
 
-	NbMes    int
-	NbBadMes int
-	NbMesIn  int
-
 	fout fits.File
 	tbl  *fits.Table
 }
