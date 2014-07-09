@@ -1,6 +1,8 @@
 package lsst
 
 import (
+	"time"
+
 	"github.com/gonuts/logger"
 )
 
@@ -58,6 +60,7 @@ func (app *App) Configure(opts Options) error {
 // Run runs the processors (Start/Process/Stop)
 func (app *App) Run() error {
 	var err error
+	start := time.Now()
 	msg.Infof("run...\n")
 	msg.Infof("start...\n")
 	for _, proc := range app.Procs {
@@ -86,6 +89,8 @@ func (app *App) Run() error {
 	}
 	msg.Infof("stop... [done]\n")
 
-	msg.Infof("run... [done]\n")
+	delta := time.Since(start)
+	msg.Infof("run... [done] (%v)\n", delta)
+
 	return err
 }
