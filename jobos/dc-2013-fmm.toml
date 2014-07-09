@@ -1,0 +1,52 @@
+BaseDir = "/sps/lsst/data/dev/lsstprod/DC_2013/forcedPhot_dir/forcedPhot"
+OutDir = "data"
+Flux = [0.0, 500000.0]
+Filters = ["i"]
+
+[RaDec]
+  NbRa = 36
+  NbDec = 18
+  DeltaRa = 10.0
+  DeltaDec = 10.0
+  [RaDec.Min]
+    Ra = 0.0
+    Dec = -90.0
+  [RaDec.Max]
+    Ra = 360.0
+    Dec = -90.0
+
+[[RunFMMs]]
+  Run = 5566
+  FieldMin = 261
+  FieldMax = 598
+
+[[RunFMMs]]
+  Run = 5637
+  FieldMin = 181
+  FieldMax = 518
+
+[[RunFMMs]]
+  Run = 5807
+  FieldMin = 361
+  FieldMax = 698
+
+[[RunFMMs]]
+  Run = 5808
+  FieldMin = 11
+  FieldMax = 50
+
+[[RunFMMs]]
+  Run = 5866
+  FieldMin = 11
+  FieldMax = 258
+
+[[RunFMMs]]
+  Run = 5871
+  FieldMin = 11
+  FieldMax = 170
+
+[[RunFMMs]]
+  Run = 5872
+  FieldMin = 11
+  FieldMax = 211
+
