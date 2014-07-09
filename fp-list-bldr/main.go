@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 
 	"github.com/gonuts/toml"
-	"github.com/lsst-france/fps-ana/lsst"
+	"github.com/lsst-france/fp-ana/lsst"
 )
 
 var (

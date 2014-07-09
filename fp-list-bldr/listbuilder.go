@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	fits "github.com/astrogo/cfitsio"
-	"github.com/lsst-france/fps-ana/lsst"
+	"github.com/lsst-france/fp-ana/lsst"
 )
 
 const (
