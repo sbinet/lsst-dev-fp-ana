@@ -21,6 +21,14 @@ This will download and compile the packages and their dependencies.
  available thru `pkg-config`.
  
 
+Users of CC-IN2P3 can setup `go` like so:
+
+```sh
+$ . /sps/lsst/Library/go/1.3/linux_amd64/setup.sh
+$ go version
+go version go1.3 linux/amd64
+```
+
 ## Example
 
 ### Usage of `fp-scan`
