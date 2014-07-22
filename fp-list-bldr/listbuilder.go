@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	fits "github.com/astrogo/cfitsio"
+	fits "github.com/astrogo/fitsio"
 	"github.com/lsst-france/fp-ana/lsst"
 )
 
@@ -94,7 +94,13 @@ func (proc *listbuilder) proc(f lsst.File) error {
 	}
 	proc.Infof("filter-id: %d (%s)\n", fid, string(f.Filter))
 
-	ff, err := fits.Open(f.Name, fits.ReadOnly)
+	rr, err := os.Open(f.Name)
+	if err != nil {
+		return err
+	}
+	defer rr.Close()
+
+	ff, err := fits.Open(rr)
 	if err != nil {
 		return err
 	}
