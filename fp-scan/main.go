@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 
 	"github.com/gonuts/toml"
 	"github.com/lsst-france/fp-ana/lsst"
@@ -47,6 +48,16 @@ func run() int {
 		fmt.Printf("**error: %v\n", err)
 		return 1
 	}
+
+	f, err := os.Create("prof.cpu")
+	if err != nil {
+		fmt.Printf("**error: %v\n", err)
+		return 1
+	}
+	defer f.Close()
+
+	pprof.StartCPUProfile(f)
+	defer pprof.StopCPUProfile()
 
 	err = app.Run()
 	if err != nil {
