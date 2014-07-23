@@ -17,8 +17,8 @@ $ go get github.com/lsst-france/fp-ana/...
 (yes, with the `...` ellipsis)
 This will download and compile the packages and their dependencies.
 
-*Note* that you will need to have the `CFITSIO` library installed and
- available thru `pkg-config`.
+*Note* that you WON'T need to have the `CFITSIO` library installed as
+ a pure-`go` is now being used (with improved performances.)
  
 
 Users of CC-IN2P3 can setup `go` like so:

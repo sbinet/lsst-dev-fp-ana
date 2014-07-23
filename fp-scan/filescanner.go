@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sort"
 
-	fits "github.com/astrogo/cfitsio"
+	fits "github.com/astrogo/fitsio"
 	"github.com/lsst-france/fp-ana/lsst"
 )
 
@@ -18,7 +18,7 @@ const (
 type fscanner struct {
 	*lsst.Processor
 
-	fout fits.File
+	fout *fits.File
 	tbl  *fits.Table
 }
 
@@ -74,14 +74,24 @@ func (proc *fscanner) start() error {
 	fname := filepath.Join(proc.OutputDir, "fpfsum.fits")
 	_ = os.RemoveAll(fname)
 
-	proc.fout, err = fits.Create(fname)
+	w, err := os.Create(fname)
 	if err != nil {
 		return err
 	}
 
-	phdu, err := fits.NewPrimaryHDU(&proc.fout, fits.NewDefaultHeader())
+	proc.fout, err = fits.Create(w)
+	if err != nil {
+		return err
+	}
+
+	phdu, err := fits.NewPrimaryHDU(nil)
 	if err != nil {
 		return fmt.Errorf("error creating PHDU: %v", err)
+	}
+
+	err = proc.fout.Write(phdu)
+	if err != nil {
+		return err
 	}
 
 	err = phdu.Close()
@@ -89,7 +99,7 @@ func (proc *fscanner) start() error {
 		return err
 	}
 
-	proc.tbl, err = fits.NewTableFrom(&proc.fout, "fpfsum", ForcedPhotData{}, fits.BINARY_TBL)
+	proc.tbl, err = fits.NewTableFrom("fpfsum", ForcedPhotData{}, fits.BINARY_TBL)
 	if err != nil {
 		return err
 	}
@@ -101,7 +111,13 @@ func (proc *fscanner) proc(f lsst.File) error {
 	proc.Infof("processing [%s] filter-id=%s camcol=%v...\n",
 		f.Name, string(f.Filter), f.CamCol,
 	)
-	ff, err := fits.Open(f.Name, fits.ReadOnly)
+	rr, err := os.Open(f.Name)
+	if err != nil {
+		return err
+	}
+	defer rr.Close()
+
+	ff, err := fits.Open(rr)
 	if err != nil {
 		return err
 	}
@@ -219,6 +235,11 @@ func (proc *fscanner) stop() error {
 	defer stats.Close()
 
 	fmt.Fprintf(stats, "## stats: %#v\n", proc.Stats)
+
+	err = proc.fout.Write(proc.tbl)
+	if err != nil {
+		return err
+	}
 
 	err = proc.tbl.Close()
 	if err != nil {
