@@ -140,6 +140,11 @@ func main() {
 		}
 	}
 
+	err = fout.Write(otbl)
+	if err != nil {
+		panic(err)
+	}
+
 	err = otbl.Close()
 	if err != nil {
 		panic(err)
