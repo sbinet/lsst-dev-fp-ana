@@ -13,10 +13,10 @@ const (
 )
 
 type SdssData struct {
-	ID  int64   `fits:"ID"`
+	ID  int64   `fits:"id"`
 	OID int64   `fits:"thing_id"`
-	Ra  float64 `fits:"RA"`
-	Dec float64 `fits:"DEC"`
+	Ra  float64 `fits:"ra"`
+	Dec float64 `fits:"dec"`
 }
 
 type Data struct {
