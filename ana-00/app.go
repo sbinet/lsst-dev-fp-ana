@@ -13,6 +13,7 @@ type App struct {
 	data    chan Result
 	fname   string
 	wg      *sync.WaitGroup
+	done    chan struct{}
 }
 
 func New(fname string) App {
@@ -22,6 +23,7 @@ func New(fname string) App {
 		data:    make(chan Result),
 		fname:   fname,
 		wg:      &wg,
+		done:    make(chan struct{}),
 	}
 }
 
@@ -29,9 +31,14 @@ func (app *App) AddWorker(fname, wtype string) error {
 	var err error
 	switch wtype {
 	case "lsst", "LSST":
-		panic("not implemented: lsst-worker")
+		wrk, err := NewLSSTWorker(fname, app.data, app.wg)
+		if err != nil {
+			return err
+		}
+		app.wg.Add(1)
+		app.workers = append(app.workers, wrk)
 	case "sdss", "SDSS":
-		wrk, err := NewSdssWorker(fname, app.data, app.wg)
+		wrk, err := NewSDSSWorker(fname, app.data, app.wg)
 		if err != nil {
 			return err
 		}
@@ -93,6 +100,7 @@ func (app *App) Run() error {
 
 	app.wg.Wait()
 	close(app.data)
+	<-app.done
 
 	fmt.Printf("--- stop workers...\n")
 	for _, wrk := range app.workers {
@@ -138,4 +146,7 @@ func (app *App) collect(table *fits.Table) {
 			panic(err)
 		}
 	}
+
+	fmt.Printf("--- stop collector\n")
+	app.done <- struct{}{}
 }
